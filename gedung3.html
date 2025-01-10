@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login dan Absensi</title>
+  <!-- Link Font Awesome -->
+  <!-- <link rel="stylesheet" href="style1.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      box-sizing: border-box; /* Pastikan padding dan border tidak membuat elemen lebih besar */
+    }
+  
+    /* Style untuk ikon status absensi */
+    .status-icon {
+      font-size: 20px;
+      margin-left: 10px;
+     
+    }
+    .sudah-absen{
+      font-family: Arial, Helvetica, sans-serif;
+      color: green;
+      font-size: 15px;
+      font-style: bold;
+    }
+  
+    .belum-absen{
+      font-family: Arial, Helvetica, sans-serif;
+      color: red;
+      font-size: 15px;
+      font-style: bold;
+    }
+  
+    
+  
+    .status-absen-masuk {
+      color: green;
+    }
+  
+    .status-belum-absen-masuk {
+      color: red;
+    }
+  
+    .status-absen-pulang {
+      color: green;
+    }
+  
+    .status-belum-absen-pulang {
+      color: red;
+    }
+  
+    /* Style untuk header nama user dan tombol logout */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #e9e61d, #0bad4f); /* Gradasi warna ala Gojek */
+      color: rgb(14, 13, 13);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan di bawah header */
+      position: relative;
+      z-index: 1000;
+      height: 65px;
+      border-radius: 0px 0px 8px 8px;
+      
+    }
+  
+    .username {
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #fbfcfb, #f5f7f5); /* Gradasi warna ala Gojek */
+      border-radius: 50px;
+      width: auto;
+      height: 10px;
+      padding: 14px 14px 25px 15px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+  
+    .header #user{
+      font-size: 20px;
+      padding-right: 2px;
+      color: #097034;
+      
+    }
+  
+    .header .logout-btn {
+        
+        cursor: pointer;
+        background-color: #fbfcfb;
+        border: none;
+        color: rgb(5, 88, 50);
+        border-radius: 30px;
+        width: 35px; /* Lebar tombol */
+        height: 35px; /* Tinggi tombol */
+        align-content: center;
+        padding: 2px 2px 2px 2px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+       
+      
+      }
+      .header .logout-btn:hover {
+        background-color: #45a049;
+        color:#fbfcfb
+  
+      }
+      /* Untuk memastikan header tampil full di mobile */
+  @media only screen and (max-width: 600px) {
+  .header {
+    padding: 10px; /* Kurangi padding agar header lebih rapi di layar kecil */
+
+  }
+  }
+  
+    /* Style untuk tombol absensi di tengah */
+    .absensi-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap; /* Agar tombol bisa wrap ke baris baru jika tidak muat */
+    }
+  
+    .absensi-buttons button {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 30px;
+      width: 220px;
+      height: 80px;
+      border: none;
+      margin: 0 20px; /* Jarak antar tombol */
+      border-radius: 10px; /* Membuat tombol berbentuk kotak */
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1); /* Bayangan tombol */
+      
+    }
+  
+    .absensi-buttons button:hover {
+      background-color: #45a049;
+    }
+  
+    .absensi-buttons i {
+      margin-right: 10px;
+    }
+
+    #dateDisplay{
+      background-color: #104e08;
+      width: auto;
+      border-radius: 30px;
+      margin: 0px 30px 20px 30px;
+      padding: 10px;
+      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2); /* Bayangan tombol */
+      color: #f9f9f9;
+    }
+  
+    /* Style untuk menu navigasi */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #4CAF50;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      font-size: 24px; /* Ukuran ikon */
+      padding: 10px; /* Ruang di sekitar ikon */
+      display: flex;
+      flex-direction: column;
+
+    }
+  
+    .navbar a:hover {
+      text-decoration: none;
+      color: #ddd; /* Warna saat hover */
+    }
+  
+    .navbar a.active {
+    color: #FFD700; /* Contoh warna emas untuk ikon aktif */
+  }
+
+  .navbar i {
+            font-size: 24px;
+            margin-bottom: 5px;
+  }
+  .navbar a span {
+            font-size: 12px;
+        }
+
+
+        
+  
+    /* Style lainnya tetap */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+  
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      margin: 20px 0;
+    }
+  
+  
+    #loginButton {
+      background: linear-gradient(135deg, #e9e61d, #0bad4f); /* Gradasi warna ala Gojek */
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  
+    button:hover {
+      background-color: #45a049;
+    }
+  
+    #loginForm, #absensiPage {
+      padding-top: 50px;
+      max-width: 400px;
+      margin:  auto;
+      margin-top: 20px;
+      padding: 30px;
+      background-color: white;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .input-container {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  .input-container input {
+    width: 100%;
+    padding: 15px;
+    padding-left: 40px; /* Ruang untuk ikon di dalam input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .input-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 18px; /* Ukuran ikon */
+  }
+
+
+    
+     @media only screen and (max-width: 600px) {
+  #loginForm {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+  }
+  
+    .hidden {
+      display: none;
+    }
+  
+    /* Spinner loading login */
+    .login-loading {
+      position: relative;
+      pointer-events: none; /* Tidak bisa diklik saat loading */
+    }
+  
+    .login-loading:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      width: 15px;
+      height: 15px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid #fff;
+      border-top: 2px solid #4CAF50;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      transform: translateY(-50%); /* Untuk vertikal align */
+    }
+  
+    /* Spinner loading absensi */
+    .absensi-loading {
+      position: relative;
+      pointer-events: none; /* Tidak bisa diklik saat loading */
+    }
+  
+  
+  
+    .absensi-loading:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 15%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid #ffffff;
+      border-top: 2px solid #4CAF50;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      transform: translateY(-50%); /* Untuk vertikal align */
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  
+   
+  
+      h2 {
+        font-size: 20px;
+      }
+  
+    
+      button {
+        padding: 10px;
+        padding: 8px;
+        font-size: 16px;
+      }
+  
+      #absensiPage button {
+        margin: 5px 0;
+      }
+    
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+  
+    table, th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    @media only screen and (max-width: 600px) {
+      table, th, td {
+        font-size: 14px;
+      }
+    }
+  
+    /* Style untuk menampilkan waktu */
+    #timeDisplay {
+      display: flex; /* Gunakan flexbox untuk menata jam, menit, detik */
+      justify-content: center; /* Pusatkan konten */
+      align-items: center; /* Vertikal align */
+      margin-top: 30px; /* Jarak di atas waktu */
+      margin-bottom: 20px;
+    
+    }
+  
+  
+    #timeDisplay .time-box {
+      font-size: 30px;
+      font-weight: bold;
+      padding: 10px 15px; /* Ruang di dalam kotak */
+      background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang kotak */
+      border: 2px solid #4CAF50; /* Border kotak */
+      border-radius: 8px; /* Sudut melengkung */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
+      margin: 0 5px; /* Jarak antar kotak */
+    }
+
+    /* Gaya untuk container utama */
+#absensiStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 600px;
+  border: 2px solid #0a9e54;
+  border-radius: 10px;
+  background-color: #eeece6;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+  
+}
+
+
+
+/* Gaya untuk status masuk */
+#statusMasuk, #statusPulang {
+  text-align: left;
+  height: 2px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-left: 1px;
+  margin-right: 4px;
+}
+
+/* .spinner-container {
+  display: flex;
+      align-items: center;
+      justify-content: center;
+} */
+
+/* Spinner gaya */
+.spinner {
+  width: 20px;
+  height: 20px;
+  margin-right: 0px; /* Jarak antara spinner dan teks */
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  display: none; /* Default tersembunyi */
+  
+  
+}
+
+/* Animasi spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading .spinner {
+      display: inline-block; /* Tampilkan spinner */
+    }
+
+/* Spinner aktif */
+.btn.loading .spinner {
+  visibility: visible; /* Spinner muncul */
+  
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Jarak antara ikon dan teks */
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+.text-masuk {
+  font-size: 30px;
+  font-weight: bold;
+  
+  
+}
+
+.text-gedung {
+  font-size: 18px;
+  color: #f9faf6; /* Warna teks lebih pucat untuk membedakan */
+  margin-top: 5px;
+  text-align: center;
+}
+
+    </style>
+ 
+</head>
+<body>
+  <div id="loginForm">
+    <h2>Login Absen YMS</h2>
+
+    
+
+    <!-- Input Username dengan ikon di dalam kotak input -->
+    <div class="input-container">
+      <i class="fas fa-user"></i> <!-- Ikon user -->
+      <input type="text" id="username" name="username" placeholder="Username">
+    </div>
+  
+    <!-- Input Password dengan ikon di dalam kotak input -->
+    <div class="input-container">
+      <i class="fas fa-lock"></i> <!-- Ikon gembok -->
+      <input type="password" id="password" name="password" placeholder="Password">
+    </div>
+  
+    <button onclick="login()" id="loginButton">Login</button>
+    <p id="loginStatus" style="color:red;"></p>
+  </div>
+
+ <!-- Header untuk nama user dan tombol logout -->
+ <div id="headerTop" class="header hidden">
+  
+  <span class="username"><i class="fa-solid fa-user" id="user"></i> <span id="usernameDisplay"></span></span>
+  <button  class="logout-btn" onclick="confirmLogout()" title="Logout">
+   <i class="fa-solid fa-power-off" style="font-size: 30px;"></i>
+  </button>
+</div>
+
+<!-- Menampilkan tanggal dan waktu -->
+
+<div id="absensiPage" class="hidden">
+
+  <p id="dateDisplay" class="hidden" style="font-weight:bold;text-align:center;"></p> <!-- Menampilkan tanggal dan hari -->
+  <p id="timeDisplay" class="hidden" style="font-weight:bold;text-align:center;">
+    <span class="time-box" id="hourDisplay">00</span> :
+    <span class="time-box" id="minuteDisplay">00</span> :
+    <span class="time-box" id="secondDisplay">00</span>
+  </p>
+ 
+  <div id="absensiStatus">
+        <!-- Status Absen Masuk -->
+    <p id="statusMasuk" style="font-weight:bold;"></p>
+    
+    <!-- Status Absen Pulang -->
+    <p id="statusPulang" style="font-weight:bold;"></p>
+   </div>
+
+  
+  <!-- Tombol Catat Masuk dan Catat Pulang -->
+  <div class="absensi-buttons">
+    <button id="masukButton" onclick="getLocation('masuk')" title="Catat Masuk" class="btn">
+      
+      <div class="content-container">
+        <div class="spinner"></div>
+        <i class="fas fa-sign-in-alt" style="margin-left: 15px;"></i>
+        <div class="text-container">
+          <span class="text-masuk">Masuk</span>
+          <span class="text-gedung">Gedung 3</span>
+        </div>
+      </div>
+    </button>
+    
+    <button id="pulangButton" onclick="getLocation('pulang')" title="Catat Pulang" class="btn">
+      <div class="content-container">
+        <div class="spinner"></div>
+        <i class="fas fa-sign-out-alt" style="margin-left: 15px;" ></i>
+        <div class="text-container">
+          <span class="text-masuk">Pulang</span>
+          <span class="text-gedung">Gedung 3</span>
+        </div>
+      </div>
+    </button>
+ </div>
+   
+</div>
+ 
+
+  <!-- Menu Navigasi, hanya ditampilkan di halaman absensi -->
+<div class="navbar hidden" id="navbar">
+  <a href="index.html" id="homeButton" title="Home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+  </a>
+  <a href="riwayat.html" id="riwayatButton" title="Riwayat">
+      <i class="fas fa-history"></i>
+      <span>Riwayat Absen</span>
+  </a>
+  <a href="izin.html" id="izinButton" title="Izin">
+    <i class="fa-solid fa-folder"></i>
+    <span>Izin</span>
+</a>
+<a href="datapengajuan.html" id="riwayatPengajuanButton" title="riwayatPengajuan">
+  <i class="fas fa-business-time icon"></i>
+  <span>Riwayat Izin</span>
+</a>
+</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const username = localStorage.getItem('username');
+
+  if (!username) {
+    // Jika tidak ada username di localStorage, arahkan ke halaman index.html
+    window.location.href = 'index.html';
+  }
+});
+
+
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbwlCCW1J_TzpP5X8J3Rq_OTibpnT54z1PgkSEVY7jqGMOJSkodFhhsfBwvpYkM8RegT/exec'; // Ganti dengan URL Web Apps kamu
+
+//lokasi gedung 3
+const targetLat = 3.518225516342177; // Lokasi target (Latitude)
+const targetLng = 98.6612364776089;  // Lokasi target (Longitude)
+const radius = 50; // Radius dalam meter
+
+//lokasi akhwat
+//const targetLat = 3.5280696940434884; // Lokasi target (Latitude)
+//const targetLng = 98.67634145072546;  // Lokasi target (Longitude)
+//const radius = 200; // Radius dalam meter
+
+function getLocation(action) {
+  var button = document.getElementById(action + 'Button');
+  button.classList.add('loading');  // Tampilkan loading pada tombol
+  button.disabled = true;  // Disable tombol saat menunggu validasi radius
+
+// Periksa apakah koneksi internet tersedia
+if (!navigator.onLine) {
+Swal.fire({
+  title: 'Tidak Ada Koneksi Internet',
+  text: 'Silakan periksa koneksi internet Anda dan coba lagi.',
+  icon: 'error',
+  confirmButtonText: 'OK'
+}).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+return; // Hentikan eksekusi jika tidak ada koneksi
+}
+
+var username = localStorage.getItem('username');  // Ambil username dari localStorage
+if (!username) {
+Swal.fire({
+  title: 'Tidak ada username',
+  text: 'Silakan login kembali.',
+  icon: 'warning',
+  confirmButtonText: 'OK'
+});
+return;
+}
+
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(function (position) {
+  var userLat = position.coords.latitude;
+  var userLng = position.coords.longitude;
+
+  // Hitung jarak dengan Haversine Formula
+  var distance = calculateDistance(userLat, userLng, targetLat, targetLng);
+
+  // Jika jarak dalam radius yang ditentukan
+  if (distance <= radius) {
+    // Kirim absensi ke server
+    absensi(action, userLat, userLng);
+  } else {
+   // Tampilkan notifikasi jika di luar radius
+   Swal.fire({
+      title: 'Anda di Luar Radius',
+      text: `Anda berada ${distance.toFixed(2)} meter di luar radius absensi. Silakan mendekat ke area yang ditentukan.`,
+      icon: 'warning',
+      confirmButtonText: 'OK'
+    }).then(() => {
+        location.reload(); // Refresh halaman setelah konfirmasi
+      });
+  }
+}, function handleGeolocationError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      Swal.fire({
+        title: 'Izin Ditolak',
+        text: 'Silakan aktifkan GPS dan izinkan aplikasi ini untuk mengakses lokasi Anda.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    case error.POSITION_UNAVAILABLE:
+      Swal.fire({
+        title: 'Lokasi Tidak Tersedia',
+        text: 'GPS mungkin dimatikan. Aktifkan GPS untuk menggunakan fitur lokasi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    case error.TIMEOUT:
+      Swal.fire({
+        title: 'Timeout',
+        text: 'Pengambilan lokasi memakan waktu terlalu lama. Silakan coba lagi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    default:
+      Swal.fire({
+        title: 'Error Tidak Diketahui',
+        text: 'Terjadi kesalahan saat mencoba mendapatkan lokasi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+  }
+});
+} else {
+// Notifikasi jika browser tidak mendukung geolocation
+Swal.fire({
+  title: 'Geolocation Tidak Didukung',
+  text: 'Browser ini tidak mendukung fitur geolocation. Silakan gunakan browser lain.',
+  icon: 'error',
+  confirmButtonText: 'OK'
+}).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+}
+}
+
+// Menghitung jarak menggunakan Haversine Formula
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371e3; // Radius bumi dalam meter
+  const φ1 = lat1 * Math.PI / 180; // φ, λ dalam radian
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lng2 - lng1) * Math.PI / 180;
+
+  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c; // Jarak dalam meter
+  return distance;
+}
+
+function absensi(action, lat, lng) {
+    var username = localStorage.getItem('username');
+    var button = document.getElementById(action + 'Button'); // Ambil tombol Masuk atau Pulang
+
+    if (username) {
+        // Pengecekan apakah user sudah absen masuk hari ini
+        const today = new Date().toDateString(); // Tanggal saat ini
+        const lastAbsenMasukDate = localStorage.getItem(`${username}_lastAbsenMasukDate`);
+
+        if (action === 'masuk' && lastAbsenMasukDate === today) {
+            Swal.fire({
+                title: 'Absen Ditolak!',
+                text: 'Alhamdulillah anda sudah melakukan absen masuk hari ini.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            }).then(() => location.reload());
+            return; // Hentikan proses jika sudah absen masuk hari ini
+        }
+
+        button.classList.add('loading'); // Tambahkan kelas loading untuk Masuk atau Pulang
+        button.disabled = true;
+
+        const waktuMasuk = new Date().toLocaleTimeString('id-ID'); // Menghasilkan waktu dalam format HH:mm:ss
+
+
+        fetch(`${apiUrl}?action=absensi&username=${username}&actionType=${action}&lat=${lat}&lng=${lng}&waktu=${encodeURIComponent(waktuMasuk)}`)
+            .then(response => response.text())
+            .then(response => {
+                if (response.includes('User tidak terjadwal')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'User tidak terjadwal',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else if (response.includes('Gagal: Jadwal masuk tidak tersedia untuk hari ini.')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'Anda tidak memiliki jadwal Masuk hari ini.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else if (response.includes('Gagal: Jadwal pulang tidak tersedia untuk hari ini.')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'Anda tidak memiliki jadwal Pulang hari ini.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else {
+                    // Simpan data absensi hanya jika respons berhasil
+                    if (action === 'masuk') {
+                        localStorage.setItem(`${username}_absenMasuk`, 'true');
+                        localStorage.setItem(`${username}_waktuMasuk`, waktuMasuk); // Simpan waktu masuk
+                        localStorage.setItem(`${username}_lastAbsenMasukDate`, today); // Simpan tanggal absen masuk
+                        localStorage.setItem(`${username}_lokasiMasuk`, 'Gedung 3');
+                    } else if (action === 'pulang') {
+                        localStorage.setItem(`${username}_absenPulang`, 'true');
+                        localStorage.setItem(`${username}_waktuPulang`, waktuMasuk); // Simpan waktu pulang
+                        localStorage.setItem(`${username}_lokasiPulang`, 'Gedung 3');
+                    }
+                    localStorage.setItem(`${username}_lastAbsenDate`, today);
+
+                    if (response.includes('Pulang Cepat')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Anda pulang lebih awal, semoga besok bisa sesuai waktu, Yassarallaah Lanaa',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('Tepat Waktu')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Anda pulang sesuai waktu, Baarakallaah Fiik',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('Masuk Terlambat')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Qadarullah, anda terlambat, semoga besok bisa tepat waktu, Yassarallaah Lanaa',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('tepat waktu')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Terimakasih, anda sudah hadir tepat waktu, Baarakallaah Fiik',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } 
+                } 
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Gagal',
+                    text: 'Silahkan coba lagi',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then(() => location.reload());
+
+                document.getElementById('absensiStatus').innerText = "Error mencatat absensi.";
+            })
+            .finally(() => {
+                button.classList.remove('loading');
+                button.disabled = false;
+            });
+    } else {
+        Swal.fire({
+            title: 'Tidak ada username',
+            text: 'Silakan login kembali.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+
+        document.getElementById('absensiStatus').innerText = "Tidak ada username yang ditemukan. Silakan login kembali.";
+    }
+}
+
+
+
+
+
+
+function updateAbsensiStatus() {
+  const username = localStorage.getItem('username');
+  const absenMasuk = localStorage.getItem(`${username}_absenMasuk`);
+  const absenPulang = localStorage.getItem(`${username}_absenPulang`);
+  const lastAbsenDate = localStorage.getItem(`${username}_lastAbsenDate`);
+  const waktuMasuk = localStorage.getItem(`${username}_waktuMasuk`);
+  const waktuPulang = localStorage.getItem(`${username}_waktuPulang`);
+  const lokasiDatang = localStorage.getItem(`${username}_lokasiMasuk`);
+  const lokasiKembali = localStorage.getItem(`${username}_lokasiPulang`);
+  const currentDate = new Date().toDateString();
+
+  if (lastAbsenDate !== currentDate) resetAbsensiStatus(username);
+
+  // Menampilkan status dengan ikon dan waktu
+var statusMessageMasuk = '';
+var statusMessagePulang = '';
+
+if (absenMasuk) {
+statusMessageMasuk = ` <i class="fas fa-check-circle status-icon status-absen-masuk"></i> <i class="sudah-absen"> Masuk di ${lokasiDatang} pukul ${waktuMasuk}</i>`;
+} else {
+statusMessageMasuk = ' <i class="fas fa-times-circle status-icon status-belum-absen-masuk"> </i> <i class="belum-absen"> Belum absen masuk</i>';
+}
+
+if (absenPulang) {
+statusMessagePulang = ` <i class="fas fa-check-circle status-icon status-absen-pulang"> </i> <i class="sudah-absen">Pulang di ${lokasiKembali} pukul ${waktuPulang}</i>`;
+} else {
+statusMessagePulang = ' <i class="fas fa-times-circle status-icon status-belum-absen-pulang"> </i> <i class="belum-absen"> Belum absen pulang</i>';
+}
+
+  document.getElementById('statusMasuk').innerHTML = statusMessageMasuk;
+  document.getElementById('statusPulang').innerHTML = statusMessagePulang;
+}
+
+
+
+function login() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var loginButton = document.getElementById('loginButton'); // Ambil tombol login
+
+  // Periksa apakah ada koneksi internet
+  if (!navigator.onLine) {
+    Swal.fire({
+      title: 'Tidak Ada Koneksi Internet',
+      text: 'Silakan periksa koneksi internet Anda dan coba lagi.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+    return; // Hentikan proses jika tidak ada internet
+  }
+
+  // Tambahkan loading spinner ke tombol login
+  loginButton.classList.add('login-loading');
+  loginButton.disabled = true; // Nonaktifkan tombol selama proses login
+
+  fetch(`${apiUrl}?action=login&username=${username}&password=${password}`)
+    .then(response => response.json()) // Parsing JSON karena API mengembalikan objek
+    .then(data => {
+      if (data.status === "Login Success") {
+        // Simpan username dan nama_user di localStorage
+        localStorage.setItem('username', username);
+        localStorage.setItem('nama_user', data.nama_user);
+
+        // Perbarui tampilan nama pengguna di elemen usernameDisplay
+        document.getElementById('usernameDisplay').innerText = data.nama_user;
+
+        // Ubah tampilan ke halaman absensi
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('absensiPage').classList.remove('hidden');
+        document.getElementById('navbar').classList.remove('hidden'); // Tampilkan navbar di halaman absensi
+        document.getElementById('headerTop').classList.remove('hidden'); // Tampilkan header di halaman absensi
+        document.getElementById('dateDisplay').classList.remove('hidden'); // Tampilkan tanggal di halaman absensi
+        document.getElementById('timeDisplay').classList.remove('hidden'); // Tampilkan waktu di halaman absensi
+        document.getElementById('homeButton').classList.add('active'); // Menandai halaman Home sebagai aktif
+
+        // Tampilkan status absensi
+        updateAbsensiStatus();
+      } else {
+        Swal.fire({
+          title: 'Login Gagal',
+          text: 'Username atau Password Tidak Sesuai',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        }).then(() => location.reload());
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Terjadi masalah dengan server. Silakan coba lagi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    })
+    .finally(() => {
+      // Hapus loading spinner dan aktifkan kembali tombol setelah proses selesai
+      loginButton.classList.remove('login-loading');
+      loginButton.disabled = false;
+    });
+}
+
+function confirmLogout() {
+  Swal.fire({
+    title: 'Yakin ingin keluar?',
+    text: "Anda akan keluar dari sesi ini.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, keluar',
+    cancelButtonText: 'Batal'
+}).then((result) => {
+    if (result.isConfirmed) {
+        // Aksi logout
+        // Misalnya, hapus session atau localStorage jika diperlukan
+        localStorage.removeItem('username'); // Contoh jika username disimpan di localStorage
+        localStorage.removeItem('nama_user');
+        sessionStorage.clear(); // Bersihkan sessionStorage jika ada
+
+        // Redirect ke halaman index.html
+        window.location.href = 'index.html';
+    }
+});
+}
+function logout() {
+  localStorage.removeItem('username');  // Hapus username dari localStorage
+    // Hapus username dari localStorage
+  // Jangan hapus status absen saat logout
+  document.getElementById('loginForm').classList.remove('hidden');
+  document.getElementById('absensiPage').classList.add('hidden');
+  document.getElementById('navbar').classList.add('hidden'); // Sembunyikan navbar di halaman login
+  document.getElementById('headerTop').classList.add('hidden'); // Sembunyikan header di halaman login
+  document.getElementById('dateDisplay').classList.add('hidden'); // Sembunyikan tanggal di halaman login
+  document.getElementById('timeDisplay').classList.add('hidden'); // Sembunyikan waktu di halaman login
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('loginStatus').innerText = 'silahkan masukan username dan password';
+  document.getElementById('absensiStatus').innerText = '';
+  
+}
+
+function updateTime() {
+const now = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+const hour = now.getHours().toString().padStart(2, '0');   // Menampilkan jam dengan 2 digit
+const minute = now.getMinutes().toString().padStart(2, '0'); // Menampilkan menit dengan 2 digit
+const second = now.getSeconds().toString().padStart(2, '0'); // Menampilkan detik dengan 2 digit
+const dateString = now.toLocaleDateString('id-ID', options); // Menggunakan 'id-ID' untuk bahasa Indonesia
+
+document.getElementById('hourDisplay').textContent = hour;
+document.getElementById('minuteDisplay').textContent = minute;
+document.getElementById('secondDisplay').textContent = second;
+document.getElementById('dateDisplay').textContent = dateString; // Memperbarui elemen tanggal dan hari
+}
+
+
+// Memperbarui waktu setiap detik
+setInterval(updateTime, 1000);
+
+window.onload = function() {
+  const namaUser = localStorage.getItem('nama_user');
+  const username = localStorage.getItem('username');
+  if (username) {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('absensiPage').classList.remove('hidden');
+    document.getElementById('navbar').classList.remove('hidden'); // Tampilkan navbar
+    document.getElementById('headerTop').classList.remove('hidden'); // Tampilkan header
+    document.getElementById('dateDisplay').classList.remove('hidden'); // Tampilkan tanggal
+    document.getElementById('timeDisplay').classList.remove('hidden'); // Tampilkan waktu
+    document.getElementById('usernameDisplay').innerText = namaUser;
+    updateTime(); // Perbarui waktu saat halaman dimuat
+
+    // Tampilkan status absensi
+    updateAbsensiStatus();
+    
+    // Tambahkan kelas aktif untuk halaman absensi
+    document.getElementById('homeButton').classList.add('active'); // Menandai halaman Home sebagai aktif
+  } else {
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('absensiPage').classList.add('hidden');
+    document.getElementById('navbar').classList.add('hidden'); // Sembunyikan navbar
+  }
+};
+  </script>
+</body>
+</html>

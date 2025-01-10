@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengajuan Cuti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
+    <style>
+* {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: Arial, sans-serif;
+        }
+
+        /* CSS untuk styling form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8e2;
+            padding: 20px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #006400;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #006400;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button.loading {
+            background-color: #999999; /* Warna saat loading */
+            cursor: not-allowed; /* Tidak bisa diklik saat loading */
+        }
+        button:hover:not(.loading) {
+            background-color: #ffd700;
+            color: #006400;
+        }
+
+        /* Style untuk menu navigasi */
+      .navbar2 {
+        display: flex;
+        position: fixed; /* Navbar akan tetap di tempat */
+        bottom: 0; /* Posisi di bagian bawah layar */
+        left: 0;
+        width: 100%; /* Lebar penuh agar sesuai dengan layar */
+        background-color: #4CAF50;
+        display: flex;
+        justify-content: space-around;
+        z-index: 1000; /* Agar navbar selalu di atas konten lain */
+      }
+
+      .navbar2 a {
+        display: flex;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        font-size: 24px; /* Ukuran ikon */
+        padding: 10px; /* Ruang di sekitar ikon */
+        flex-direction: column;
+      }
+
+      .navbar2 a:hover {
+        text-decoration: none;
+        color: #ddd; /* Warna saat hover */
+      }
+
+      .active {
+        color: #FFD700; /* Warna emas untuk ikon aktif */
+      }
+      .navbar2 i {
+            font-size: 24px;
+            margin-bottom: 5px;
+  }
+  .navbar2 a span {
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    input, textarea, select, button {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+h1 {
+    font-family: Arial, Helvetica, sans-serif; /* Menggunakan font yang elegan */
+    font-size: 20px; /* Ukuran font besar */
+    font-weight: bold; /* Membuat font lebih tebal */
+    color: #05421a; /* Warna hijau tua */
+    text-align: center; /* Mengatur judul di tengah */
+    margin-bottom: 20px; /* Jarak antara judul dan elemen berikutnya */
+    padding-bottom: 10px;
+    border-bottom: 2px solid #BDB76B; /* Menambahkan garis bawah */
+    
+    letter-spacing: 1px; /* Memberi jarak antar huruf */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan teks */
+}
+
+#nama{
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Pengajuan Tidak Hadir</h1>
+    <form id="izinForm">
+        <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required readonly>
+    
+        <label for="jenisIzin">Alasan Tidak Hadir :</label>
+        <select id="jenisIzin" name="jenisIzin" required>
+            <option value="" disabled selected>Pilih Jenis Izin...</option>
+            <option value="Sakit">Sakit</option>
+            <option value="Izin">Izin</option>
+            <option value="Umroh">Umroh</option>
+            <option value="Tugas Luar">Tugas Luar</option>
+        </select>
+    
+        <label for="startDate">Dari Tanggal:</label>
+        <input type="date" id="startDate" name="startDate" required>
+    
+        <label for="endDate">Sampai Tanggal:</label>
+        <input type="date" id="endDate" name="endDate" required>
+    
+        <label for="buktiFoto">Upload Bukti Pendukung:</label>
+        <input type="file" id="buktiFoto" name="buktiFoto" accept=".jpg,.jpeg,.png,.pdf" required>
+    
+        <textarea id="alasan" name="alasan" rows="4" placeholder="Alasan Izin" required></textarea>
+        <button type="submit" id="submitButton">Ajukan Tidak Hadir</button>
+    </form>
+    
+    <div id="status"></div>
+    
+    <script>
+        // Ambil username dari localStorage dan isi pada input nama
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('nama').value = username;
+        } else {
+            alert("Username tidak ditemukan di local storage!");
+            window.location.href = 'index.html';
+        }
+    
+        document.getElementById('izinForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+
+            var submitButton = document.getElementById('submitButton');
+            submitButton.innerHTML = 'Loading...'; // Ubah teks tombol
+            submitButton.classList.add('loading'); // Tambahkan kelas loading
+            submitButton.disabled = true; // Nonaktifkan tombol selama proses
+
+            // Ambil data file yang akan diunggah
+            var fileInput = document.getElementById('buktiFoto');
+            var file = fileInput.files[0];
+
+            // Gunakan FileReader untuk mengubah file menjadi base64
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var base64String = e.target.result.split(',')[1];
+
+                // Kirim data ke Google Apps Script menggunakan fetch
+                var formData = new FormData();
+                formData.append("action", "submit");
+                formData.append("nama", document.getElementById('nama').value);
+                formData.append("jenisIzin", document.getElementById('jenisIzin').value);
+                formData.append("startDate", document.getElementById('startDate').value);
+                formData.append("endDate", document.getElementById('endDate').value);
+                formData.append("alasan", document.getElementById('alasan').value);
+                formData.append("buktiFoto", base64String);
+                formData.append("fileName", file.name);
+
+                fetch('https://script.google.com/macros/s/AKfycbyONZoj5ECQlhA_6S4aZO2RuL8s2eXqPmASKup5MVuTI5zEl0s9bZF5QltYJXPnyMZi/exec', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                .then(result => {
+                    // Tampilkan notifikasi SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data berhasil dikirim!',
+                        text: 'Pengajuan tidak hadir Anda telah berhasil disimpan.',
+                        confirmButtonText: 'OK'
+                    });
+
+                    document.getElementById('izinForm').reset(); // Reset form setelah pengiriman
+                }).catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Terjadi kesalahan: ' + error
+                    });
+                }).finally(() => {
+                    submitButton.innerHTML = 'Ajukan Tidak Hadir'; // Kembalikan teks tombol
+                    submitButton.classList.remove('loading'); // Hapus kelas loading
+                    submitButton.disabled = false; // Aktifkan kembali tombol
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+    <!-- Menu Navigasi -->
+    <div class="navbar2 hidden" id="navbar">
+        <a href="index.html" id="homeButton" title="Home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="riwayat.html" id="riwayatButton" title="Riwayat">
+            <i class="fas fa-history"></i>
+            <span>Riwayat Absen</span>
+        </a>
+        <a href="izin.html" id="izinButton" title="Izin">
+            <i class="fa-solid fa-folder active"></i>
+            <span class="active">Izin</span>
+        </a>
+        <a href="datapengajuan.html" id="riwayatPengajuanButton" title="riwayatPengajuan">
+          <i class="fas fa-business-time icon"></i>
+          <span>Riwayat Izin</span>
+        </a>
+    </div>
+
+</body>
+</html>
