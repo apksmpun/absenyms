@@ -8,478 +8,503 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
-  html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      box-sizing: border-box; /* Pastikan padding dan border tidak membuat elemen lebih besar */
-    }
-  
-    /* Style untuk ikon status absensi */
-    .status-icon {
-      font-size: 20px;
-      margin-left: 10px;
-     
-    }
-    .sudah-absen{
-      font-family: Arial, Helvetica, sans-serif;
-      color: green;
-      font-size: 15px;
-      font-style: bold;
-    }
-  
-    .belum-absen{
-      font-family: Arial, Helvetica, sans-serif;
-      color: red;
-      font-size: 15px;
-      font-style: bold;
-    }
-  
+  <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box; /* Pastikan padding dan border tidak membuat elemen lebih besar */
+      }
     
-  
-    .status-absen-masuk {
-      color: green;
-    }
-  
-    .status-belum-absen-masuk {
-      color: red;
-    }
-  
-    .status-absen-pulang {
-      color: green;
-    }
-  
-    .status-belum-absen-pulang {
-      color: red;
-    }
-  
-    /* Style untuk header nama user dan tombol logout */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #e9e61d, #0bad4f); /* Gradasi warna ala Gojek */
-      color: rgb(14, 13, 13);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan di bawah header */
-      position: relative;
-      z-index: 1000;
-      height: 65px;
-      border-radius: 0px 0px 8px 8px;
-      
-    }
-  
-    .username {
-      font-size: 16px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #fbfcfb, #f5f7f5); /* Gradasi warna ala Gojek */
-      border-radius: 50px;
-      width: auto;
-      height: 10px;
-      padding: 14px 14px 25px 15px;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    }
-  
-    .header #user{
-      font-size: 20px;
-      padding-right: 2px;
-      color: #097034;
-      
-    }
-  
-    .header .logout-btn {
-        
-        cursor: pointer;
-        background-color: #fbfcfb;
-        border: none;
-        color: rgb(5, 88, 50);
-        border-radius: 30px;
-        width: 35px; /* Lebar tombol */
-        height: 35px; /* Tinggi tombol */
-        align-content: center;
-        padding: 2px 2px 2px 2px;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      /* Style untuk ikon status absensi */
+      .status-icon {
+        font-size: 20px;
+        margin-left: 10px;
        
-      
       }
-      .header .logout-btn:hover {
-        background-color: #45a049;
-        color:#fbfcfb
-  
+      .sudah-absen{
+        font-family: Arial, Helvetica, sans-serif;
+        color: green;
+        font-size: 15px;
+        font-style: bold;
       }
-      /* Untuk memastikan header tampil full di mobile */
-  @media only screen and (max-width: 600px) {
-  .header {
-    padding: 10px; /* Kurangi padding agar header lebih rapi di layar kecil */
-
-  }
-  }
-  
-    /* Style untuk tombol absensi di tengah */
-    .absensi-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-      flex-wrap: wrap; /* Agar tombol bisa wrap ke baris baru jika tidak muat */
-    }
-  
-    .absensi-buttons button {
-      background-color: #4CAF50;
-      color: white;
-      font-size: 30px;
-      width: 220px;
-      height: 80px;
-      border: none;
-      margin: 0 20px; /* Jarak antar tombol */
-      border-radius: 10px; /* Membuat tombol berbentuk kotak */
-      cursor: pointer;
-      transition: background-color 0.3s, box-shadow 0.3s;
-      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1); /* Bayangan tombol */
+    
+      .belum-absen{
+        font-family: Arial, Helvetica, sans-serif;
+        color: red;
+        font-size: 15px;
+        font-style: bold;
+      }
+    
       
-    }
-  
-    .absensi-buttons button:hover {
-      background-color: #45a049;
-    }
-  
-    .absensi-buttons i {
-      margin-right: 10px;
-    }
-
-    #dateDisplay{
-      background-color: #104e08;
-      width: auto;
-      border-radius: 30px;
-      margin: 0px 30px 20px 30px;
-      padding: 10px;
-      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2); /* Bayangan tombol */
-      color: #f9f9f9;
-    }
-  
-    /* Style untuk menu navigasi */
-    .navbar {
-      display: flex;
-      justify-content: space-around;
-      background-color: #4CAF50;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-      font-size: 24px; /* Ukuran ikon */
-      padding: 10px; /* Ruang di sekitar ikon */
-      display: flex;
-      flex-direction: column;
-
-    }
-  
-    .navbar a:hover {
-      text-decoration: none;
-      color: #ddd; /* Warna saat hover */
-    }
-  
-    .navbar a.active {
-    color: #FFD700; /* Contoh warna emas untuk ikon aktif */
-  }
-
-  .navbar i {
-            font-size: 24px;
-            margin-bottom: 5px;
-  }
-  .navbar a span {
-            font-size: 12px;
-        }
-
-
+    
+      .status-absen-masuk {
+        color: green;
+      }
+    
+      .status-belum-absen-masuk {
+        color: red;
+      }
+    
+      .status-absen-pulang {
+        color: green;
+      }
+    
+      .status-belum-absen-pulang {
+        color: red;
+      }
+    
+      /* Style untuk header nama user dan tombol logout */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #e9e61d, rgb(34, 117, 79)); /* Gradasi warna ala Gojek */
+        color: rgb(14, 13, 13);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan di bawah header */
+        position: relative;
+        z-index: 1000;
+        height: 65px;
+        border-radius: 0px 0px 8px 8px;
         
+      }
+    
+      .username {
+        font-size: 16px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #fbfcfb, #f5f7f5); /* Gradasi warna ala Gojek */
+        border-radius: 50px;
+        width: auto;
+        height: 10px;
+        padding: 14px 14px 25px 15px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      }
+    
+      .header #user{
+        font-size: 20px;
+        padding-right: 2px;
+        color: #097034;
+        
+      }
+    
+      .header .logout-btn {
+          
+          cursor: pointer;
+          background-color: #fbfcfb;
+          border: none;
+          color: rgb(5, 88, 50);
+          border-radius: 30px;
+          width: 35px; /* Lebar tombol */
+          height: 35px; /* Tinggi tombol */
+          align-content: center;
+          padding: 2px 2px 2px 2px;
+          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+         
+        
+        }
+        .header .logout-btn:hover {
+          background-color: #45a049;
+          color:#fbfcfb
+    
+        }
+        /* Untuk memastikan header tampil full di mobile */
+    @media only screen and (max-width: 600px) {
+    .header {
+      padding: 10px; /* Kurangi padding agar header lebih rapi di layar kecil */
   
-    /* Style lainnya tetap */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
     }
-  
-    h2 {
-      font-size: 24px;
-      text-align: center;
-      margin: 20px 0;
     }
+    
+      /* Style untuk tombol absensi di tengah */
+      .absensi-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        flex-wrap: wrap; /* Agar tombol bisa wrap ke baris baru jika tidak muat */
+      }
+    
+      .absensi-buttons button {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 30px;
+        width: 220px;
+        height: 80px;
+        border: none;
+        margin: 0 20px; /* Jarak antar tombol */
+        border-radius: 10px; /* Membuat tombol berbentuk kotak */
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1); /* Bayangan tombol */
+        
+      }
+    
+      .absensi-buttons button:hover {
+        background-color: #45a049;
+      }
+    
+      .absensi-buttons i {
+        margin-right: 10px;
+      }
+  
+      #dateDisplay{
+        background-color: #104e08;
+        width: auto;
+        border-radius: 30px;
+        margin: 0px 30px 20px 30px;
+        padding: 10px;
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.2); /* Bayangan tombol */
+        color: #f9f9f9;
+      }
+    
+    /* Style untuk menu navigasi */
+  .active {
+        color: #FFD700; /* Warna emas untuk ikon aktif */
+      }
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(34, 117, 79);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2px 0;
+    border-radius: 10px 10px 0px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex: 1;
+    font-size: 11px;
+}
+
+.nav-item i {
+    display: block;
+    font-size: 25px;
+    padding-bottom: 5px;
+}
+
+.center {
+    position: relative;
+    top: -18px;
+}
+
+.center-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diamond {
+    background: rgb(34, 117, 79);
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    box-shadow: 5px 5px  rgba(0, 0, 0, 0);
+}
+
+.diamond i {
+    font-size: 40px;
+    color: #FFD700;
+    transform: rotate(-45deg);
+
+    
+}
   
   
-    #loginButton {
-      background: linear-gradient(135deg, #e9e61d, #0bad4f); /* Gradasi warna ala Gojek */
-      color: white;
-      cursor: pointer;
+          
+    
+      /* Style lainnya tetap */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+    
+      h2 {
+        font-size: 24px;
+        text-align: center;
+        margin: 20px 0;
+      }
+    
+    
+      #loginButton {
+        background: linear-gradient(135deg, #e9e61d, #0bad4f); /* Gradasi warna ala Gojek */
+        color: white;
+        cursor: pointer;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+    
+      button:hover {
+        background-color: #45a049;
+      }
+    
+      #loginForm, #absensiPage {
+        padding-top: 50px;
+        max-width: 400px;
+        margin:  auto;
+        margin-top: 20px;
+        padding: 30px;
+        background-color: #fbfcfb;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+  
+      .input-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .input-container input {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 15px;
+      padding-left: 40px; /* Ruang untuk ikon di dalam input */
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
     }
   
-    button:hover {
-      background-color: #45a049;
-    }
-  
-    #loginForm, #absensiPage {
-      padding-top: 50px;
-      max-width: 400px;
-      margin:  auto;
-      margin-top: 20px;
-      padding: 30px;
-      background-color: white;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    .input-container {
-    position: relative;
-    margin-bottom: 15px;
-  }
-  .input-container input {
-    width: 100%;
-    padding: 15px;
-    padding-left: 40px; /* Ruang untuk ikon di dalam input */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-  .input-container i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-    font-size: 18px; /* Ukuran ikon */
-  }
-
-
-    
-     @media only screen and (max-width: 600px) {
-  #loginForm {
-        margin-left: 20px;
-        margin-right: 20px;
-      }
-  }
-  
-    .hidden {
-      display: none;
-    }
-  
-    /* Spinner loading login */
-    .login-loading {
-      position: relative;
-      pointer-events: none; /* Tidak bisa diklik saat loading */
-    }
-  
-    .login-loading:after {
-      content: '';
+    .input-container i {
       position: absolute;
+      left: 10px;
       top: 50%;
-      left: 40%;
-      width: 15px;
-      height: 15px;
-      margin: -10px 0 0 -10px;
-      border: 2px solid #fff;
-      border-top: 2px solid #4CAF50;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-      transform: translateY(-50%); /* Untuk vertikal align */
-    }
-  
-    /* Spinner loading absensi */
-    .absensi-loading {
-      position: relative;
-      pointer-events: none; /* Tidak bisa diklik saat loading */
+      transform: translateY(-50%);
+      color: #888;
+      font-size: 18px; /* Ukuran ikon */
     }
   
   
-  
-    .absensi-loading:after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 15%;
-      width: 20px;
-      height: 20px;
-      margin: -10px 0 0 -10px;
-      border: 2px solid #ffffff;
-      border-top: 2px solid #4CAF50;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-      transform: translateY(-50%); /* Untuk vertikal align */
+      
+       @media only screen and (max-width: 600px) {
+    #loginForm {
+          margin-left: 20px;
+          margin-right: 20px;
+        }
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  
-   
-  
-      h2 {
-        font-size: 20px;
-      }
-  
     
-      button {
-        padding: 10px;
-        padding: 8px;
-        font-size: 16px;
-      }
-  
-      #absensiPage button {
-        margin: 5px 0;
+      .hidden {
+        display: none;
       }
     
-  
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-  
-    table, th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-  
-    th {
-      background-color: #f2f2f2;
-    }
-  
-    @media only screen and (max-width: 600px) {
+      /* Spinner loading login */
+      .login-loading {
+        position: relative;
+        pointer-events: none; /* Tidak bisa diklik saat loading */
+      }
+    
+      .login-loading:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        width: 15px;
+        height: 15px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #fff;
+        border-top: 2px solid #4CAF50;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+        transform: translateY(-50%); /* Untuk vertikal align */
+      }
+    
+      /* Spinner loading absensi */
+      .absensi-loading {
+        position: relative;
+        pointer-events: none; /* Tidak bisa diklik saat loading */
+      }
+    
+    
+    
+      .absensi-loading:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 15%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid #4CAF50;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+        transform: translateY(-50%); /* Untuk vertikal align */
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    
+     
+    
+        h2 {
+          font-size: 20px;
+        }
+    
+      
+        button {
+          padding: 10px;
+          padding: 8px;
+          font-size: 16px;
+        }
+    
+        #absensiPage button {
+          margin: 5px 0;
+        }
+      
+    
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    
       table, th, td {
-        font-size: 14px;
+        border: 1px solid #ddd;
+        padding: 8px;
       }
-    }
-  
-    /* Style untuk menampilkan waktu */
-    #timeDisplay {
-      display: flex; /* Gunakan flexbox untuk menata jam, menit, detik */
-      justify-content: center; /* Pusatkan konten */
-      align-items: center; /* Vertikal align */
-      margin-top: 30px; /* Jarak di atas waktu */
-      margin-bottom: 20px;
     
-    }
+      th {
+        background-color: #f2f2f2;
+      }
+    
+      @media only screen and (max-width: 600px) {
+        table, th, td {
+          font-size: 14px;
+        }
+      }
+    
+      /* Style untuk menampilkan waktu */
+      #timeDisplay {
+        display: flex; /* Gunakan flexbox untuk menata jam, menit, detik */
+        justify-content: center; /* Pusatkan konten */
+        align-items: center; /* Vertikal align */
+        margin-top: 30px; /* Jarak di atas waktu */
+        margin-bottom: 20px;
+      
+      }
+    
+    
+      #timeDisplay .time-box {
+        font-size: 30px;
+        font-weight: bold;
+        padding: 10px 15px; /* Ruang di dalam kotak */
+        background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang kotak */
+        border: 2px solid #4CAF50; /* Border kotak */
+        border-radius: 8px; /* Sudut melengkung */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
+        margin: 0 5px; /* Jarak antar kotak */
+      }
   
-  
-    #timeDisplay .time-box {
-      font-size: 30px;
-      font-weight: bold;
-      padding: 10px 15px; /* Ruang di dalam kotak */
-      background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang kotak */
-      border: 2px solid #4CAF50; /* Border kotak */
-      border-radius: 8px; /* Sudut melengkung */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
-      margin: 0 5px; /* Jarak antar kotak */
-    }
-
-    /* Gaya untuk container utama */
-#absensiStatus {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  max-width: 600px;
-  border: 2px solid #0a9e54;
-  border-radius: 10px;
-  background-color: #eeece6;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
-  
-}
-
-
-
-/* Gaya untuk status masuk */
-#statusMasuk, #statusPulang {
-  text-align: left;
-  height: 2px;
-  margin-bottom: 30px;
-  margin-top: 10px;
-  margin-left: 1px;
-  margin-right: 4px;
-}
-
-/* .spinner-container {
-  display: flex;
-      align-items: center;
-      justify-content: center;
-} */
-
-/* Spinner gaya */
-.spinner {
-  width: 20px;
-  height: 20px;
-  margin-right: 0px; /* Jarak antara spinner dan teks */
-  border: 2px solid #fff;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1s linear infinite;
-  display: none; /* Default tersembunyi */
-  
-  
-}
-
-/* Animasi spinner */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+      /* Gaya untuk container utama */
+  #absensiStatus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 600px;
+    border: 2px solid #0a9e54;
+    border-radius: 10px;
+    background-color: #eeece6;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+    
   }
-  to {
-    transform: rotate(360deg);
+  
+  
+  
+  /* Gaya untuk status masuk */
+  #statusMasuk, #statusPulang {
+    text-align: left;
+    height: 2px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 1px;
+    margin-right: 4px;
   }
-}
-
-.loading .spinner {
-      display: inline-block; /* Tampilkan spinner */
+  
+  /* .spinner-container {
+    display: flex;
+        align-items: center;
+        justify-content: center;
+  } */
+  
+  /* Spinner gaya */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    margin-right: 0px; /* Jarak antara spinner dan teks */
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    display: none; /* Default tersembunyi */
+    
+    
+  }
+  
+  /* Animasi spinner */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
     }
-
-/* Spinner aktif */
-.btn.loading .spinner {
-  visibility: visible; /* Spinner muncul */
+    to {
+      transform: rotate(360deg);
+    }
+  }
   
-}
-
-.content-container {
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Jarak antara ikon dan teks */
-}
-
-.text-container {
-  display: flex;
-  flex-direction: column;
+  .loading .spinner {
+        display: inline-block; /* Tampilkan spinner */
+      }
   
+  /* Spinner aktif */
+  .btn.loading .spinner {
+    visibility: visible; /* Spinner muncul */
+    
+  }
   
-}
-
-.text-masuk {
-  font-size: 30px;
-  font-weight: bold;
+  .content-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Jarak antara ikon dan teks */
+  }
   
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    
+    
+  }
   
-}
-
-.text-gedung {
-  font-size: 18px;
-  color: #f9faf6; /* Warna teks lebih pucat untuk membedakan */
-  margin-top: 5px;
-  text-align: center;
-}
-
-    </style>
+  .text-masuk {
+    font-size: 30px;
+    font-weight: bold;
+    
+    
+  }
+  
+  .text-gedung {
+    font-size: 18px;
+    color: #f9faf6; /* Warna teks lebih pucat untuk membedakan */
+    margin-top: 5px;
+    text-align: center;
+  }
+  
+      </style>
  
 </head>
 <body>
@@ -562,25 +587,7 @@
 </div>
  
 
-  <!-- Menu Navigasi, hanya ditampilkan di halaman absensi -->
-<div class="navbar hidden" id="navbar">
-  <a href="index.html" id="homeButton" title="Home">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-  </a>
-  <a href="riwayat.html" id="riwayatButton" title="Riwayat">
-      <i class="fas fa-history"></i>
-      <span>Riwayat Absen</span>
-  </a>
-  <a href="izin.html" id="izinButton" title="Izin">
-    <i class="fa-solid fa-folder"></i>
-    <span>Izin</span>
-</a>
-<a href="datapengajuan.html" id="riwayatPengajuanButton" title="riwayatPengajuan">
-  <i class="fas fa-business-time icon"></i>
-  <span>Riwayat Izin</span>
-</a>
-</div>
+  
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1052,4 +1059,30 @@ window.onload = function() {
 };
   </script>
 </body>
+<!-- Menu Navigasi, hanya ditampilkan di halaman absensi -->
+<div class="navbar hidden" id="navbar">
+  <a href="riwayat.html" class="nav-item">
+    <i class="fa-solid fa-clock"></i>
+    <span>Data Absen</span>
+</a>
+<a href="datapengajuan.html" class="nav-item">
+    <i class="fas fa-check-to-slot"></i>
+    <span>Data Cuti</span>
+</a>
+<a href="index.html" class="nav-item center">
+    <div class="center-icon">
+        <div class="diamond">
+            <i class="fas fa-circle-plus"></i>
+        </div>
+    </div>
+</a>
+<a href="izin.html" class="nav-item">
+    <i class="fas fa-folder"></i>
+    <span>Cuti</span>
+</a>
+<a href="pengajuanlembur.html" class="nav-item">
+    <i class="fas fa-business-time"></i>
+    <span>Lembur</span>
+</a>
+</div>
 </html>
