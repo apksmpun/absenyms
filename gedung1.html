@@ -590,7 +590,473 @@
  
 
   <script>
-   const _0x288ed7=_0x3bd5;(function(_0x2d02e3,_0x5c3278){const _0x3aadfa=_0x3bd5,_0x5de521=_0x2d02e3();while(!![]){try{const _0x12b399=parseInt(_0x3aadfa(0x14e))/0x1+parseInt(_0x3aadfa(0x14a))/0x2*(-parseInt(_0x3aadfa(0x14d))/0x3)+parseInt(_0x3aadfa(0xfb))/0x4*(parseInt(_0x3aadfa(0x159))/0x5)+-parseInt(_0x3aadfa(0x16a))/0x6+parseInt(_0x3aadfa(0x11e))/0x7*(-parseInt(_0x3aadfa(0x16f))/0x8)+parseInt(_0x3aadfa(0x133))/0x9*(-parseInt(_0x3aadfa(0x172))/0xa)+parseInt(_0x3aadfa(0x140))/0xb*(parseInt(_0x3aadfa(0x171))/0xc);if(_0x12b399===_0x5c3278)break;else _0x5de521['push'](_0x5de521['shift']());}catch(_0x365c59){_0x5de521['push'](_0x5de521['shift']());}}}(_0x2432,0x41f18),document['addEventListener'](_0x288ed7(0x15b),()=>{const _0x324f0c=_0x288ed7,_0x151f2f=localStorage['getItem'](_0x324f0c(0xe6));!_0x151f2f&&(window[_0x324f0c(0x12e)][_0x324f0c(0xea)]='index.html');}));const apiUrl=_0x288ed7(0x152),targetLat=3.5154559402393692,targetLng=98.67312321534209,radius=0x5a;function getLocation(_0xf77559){const _0x2fba62=_0x288ed7;var _0x2f7a4d=document[_0x2fba62(0x16d)](_0xf77559+'Button');_0x2f7a4d[_0x2fba62(0x15f)][_0x2fba62(0x166)](_0x2fba62(0xef)),_0x2f7a4d[_0x2fba62(0x15d)]=!![];if(!navigator[_0x2fba62(0xec)]){Swal[_0x2fba62(0x145)]({'title':_0x2fba62(0xfa),'text':'Silakan\x20periksa\x20koneksi\x20internet\x20Anda\x20dan\x20coba\x20lagi.','icon':_0x2fba62(0x15a),'confirmButtonText':'OK'})['then'](()=>{const _0x2bafed=_0x2fba62;location[_0x2bafed(0x13b)]();});return;}var _0x325675=localStorage[_0x2fba62(0xf0)](_0x2fba62(0xe6));if(!_0x325675){Swal[_0x2fba62(0x145)]({'title':_0x2fba62(0x12c),'text':_0x2fba62(0x149),'icon':_0x2fba62(0x116),'confirmButtonText':'OK'});return;}navigator[_0x2fba62(0xff)]?navigator[_0x2fba62(0xff)]['getCurrentPosition'](function(_0x1c047a){const _0x19068d=_0x2fba62;var _0x29db3d=_0x1c047a[_0x19068d(0x134)]['latitude'],_0x170640=_0x1c047a[_0x19068d(0x134)][_0x19068d(0x109)],_0x11e53b=calculateDistance(_0x29db3d,_0x170640,targetLat,targetLng);_0x11e53b<=radius?absensi(_0xf77559,_0x29db3d,_0x170640):Swal['fire']({'title':_0x19068d(0x167),'text':_0x19068d(0xf7)+_0x11e53b[_0x19068d(0xf5)](0x2)+'\x20meter\x20di\x20luar\x20radius\x20absensi.\x20Silakan\x20mendekat\x20ke\x20area\x20yang\x20ditentukan.','icon':_0x19068d(0x116),'confirmButtonText':'OK'})[_0x19068d(0x121)](()=>{const _0x2bb114=_0x19068d;location[_0x2bb114(0x13b)]();});},function _0x3a50a7(_0x265116){const _0x1563b7=_0x2fba62;switch(_0x265116[_0x1563b7(0x165)]){case _0x265116[_0x1563b7(0x16b)]:Swal['fire']({'title':'Izin\x20Ditolak','text':_0x1563b7(0x119),'icon':_0x1563b7(0x116),'confirmButtonText':'OK'})['then'](()=>{const _0x431e6a=_0x1563b7;location[_0x431e6a(0x13b)]();});break;case _0x265116[_0x1563b7(0x124)]:Swal[_0x1563b7(0x145)]({'title':_0x1563b7(0x137),'text':'GPS\x20mungkin\x20dimatikan.\x20Aktifkan\x20GPS\x20untuk\x20menggunakan\x20fitur\x20lokasi.','icon':_0x1563b7(0x15a),'confirmButtonText':'OK'})['then'](()=>{const _0x49b321=_0x1563b7;location[_0x49b321(0x13b)]();});break;case _0x265116[_0x1563b7(0xf3)]:Swal['fire']({'title':_0x1563b7(0x112),'text':_0x1563b7(0x160),'icon':_0x1563b7(0x15a),'confirmButtonText':'OK'})[_0x1563b7(0x121)](()=>{location['reload']();});break;default:Swal['fire']({'title':_0x1563b7(0x122),'text':'Terjadi\x20kesalahan\x20saat\x20mencoba\x20mendapatkan\x20lokasi.','icon':_0x1563b7(0x15a),'confirmButtonText':'OK'})['then'](()=>{const _0xb74b21=_0x1563b7;location[_0xb74b21(0x13b)]();});break;}}):Swal[_0x2fba62(0x145)]({'title':_0x2fba62(0x117),'text':_0x2fba62(0x142),'icon':_0x2fba62(0x15a),'confirmButtonText':'OK'})['then'](()=>{const _0xed1bd=_0x2fba62;location[_0xed1bd(0x13b)]();});}function calculateDistance(_0x3eb4c1,_0x455c81,_0x153dbe,_0x17ff13){const _0x2b4cd5=_0x288ed7,_0x37d396=0x6136b8,_0x5c574d=_0x3eb4c1*Math['PI']/0xb4,_0x4340e6=_0x153dbe*Math['PI']/0xb4,_0x5ca017=(_0x153dbe-_0x3eb4c1)*Math['PI']/0xb4,_0x25f1b3=(_0x17ff13-_0x455c81)*Math['PI']/0xb4,_0x297420=Math[_0x2b4cd5(0x130)](_0x5ca017/0x2)*Math[_0x2b4cd5(0x130)](_0x5ca017/0x2)+Math['cos'](_0x5c574d)*Math['cos'](_0x4340e6)*Math['sin'](_0x25f1b3/0x2)*Math[_0x2b4cd5(0x130)](_0x25f1b3/0x2),_0x509fd2=0x2*Math['atan2'](Math[_0x2b4cd5(0xf1)](_0x297420),Math[_0x2b4cd5(0xf1)](0x1-_0x297420)),_0x3d0756=_0x37d396*_0x509fd2;return _0x3d0756;}function absensi(_0x287f5b,_0x3da95a,_0x802454){const _0x3f96b1=_0x288ed7;var _0x14b02c=localStorage[_0x3f96b1(0xf0)](_0x3f96b1(0xe6)),_0x318f7b=document[_0x3f96b1(0x16d)](_0x287f5b+_0x3f96b1(0x104));if(_0x14b02c){const _0x4a2fe5=new Date()[_0x3f96b1(0x136)](),_0x242e20=localStorage['getItem'](_0x14b02c+'_lastAbsenMasukDate');if(_0x287f5b===_0x3f96b1(0x144)&&_0x242e20===_0x4a2fe5){Swal[_0x3f96b1(0x145)]({'title':_0x3f96b1(0x147),'text':_0x3f96b1(0xf4),'icon':'warning','confirmButtonText':'OK'})['then'](()=>location[_0x3f96b1(0x13b)]());return;}_0x318f7b[_0x3f96b1(0x15f)][_0x3f96b1(0x166)](_0x3f96b1(0xef)),_0x318f7b[_0x3f96b1(0x15d)]=!![];const _0x17be90=new Date()[_0x3f96b1(0xf8)](_0x3f96b1(0x107));fetch(apiUrl+_0x3f96b1(0x11c)+_0x14b02c+'&actionType='+_0x287f5b+'&lat='+_0x3da95a+_0x3f96b1(0x11b)+_0x802454+_0x3f96b1(0x169)+encodeURIComponent(_0x17be90))[_0x3f96b1(0x121)](_0xd12fcc=>_0xd12fcc['text']())[_0x3f96b1(0x121)](_0x13ea4d=>{const _0xab4084=_0x3f96b1;if(_0x13ea4d[_0xab4084(0x13c)](_0xab4084(0x173)))Swal[_0xab4084(0x145)]({'title':'Absensi\x20Gagal!','text':_0xab4084(0x173),'icon':'warning','confirmButtonText':'OK'})[_0xab4084(0x121)](()=>location[_0xab4084(0x13b)]());else{if(_0x13ea4d[_0xab4084(0x13c)](_0xab4084(0x154)))Swal[_0xab4084(0x145)]({'title':_0xab4084(0x138),'text':_0xab4084(0x162),'icon':_0xab4084(0x116),'confirmButtonText':'OK'})['then'](()=>location[_0xab4084(0x13b)]());else{if(_0x13ea4d[_0xab4084(0x13c)](_0xab4084(0x157)))Swal[_0xab4084(0x145)]({'title':_0xab4084(0x138),'text':'Anda\x20tidak\x20memiliki\x20jadwal\x20Pulang\x20hari\x20ini.','icon':_0xab4084(0x116),'confirmButtonText':'OK'})[_0xab4084(0x121)](()=>location['reload']());else{if(_0x287f5b===_0xab4084(0x144))localStorage[_0xab4084(0x16e)](_0x14b02c+_0xab4084(0x131),_0xab4084(0x139)),localStorage['setItem'](_0x14b02c+_0xab4084(0xe9),_0x17be90),localStorage['setItem'](_0x14b02c+'_lastAbsenMasukDate',_0x4a2fe5),localStorage['setItem'](_0x14b02c+_0xab4084(0x13f),_0xab4084(0x15c));else _0x287f5b==='pulang'&&(localStorage[_0xab4084(0x16e)](_0x14b02c+_0xab4084(0x135),'true'),localStorage[_0xab4084(0x16e)](_0x14b02c+_0xab4084(0x118),_0x17be90),localStorage[_0xab4084(0x16e)](_0x14b02c+'_lokasiPulang','Gedung\x201'));localStorage[_0xab4084(0x16e)](_0x14b02c+_0xab4084(0x128),_0x4a2fe5);if(_0x13ea4d[_0xab4084(0x13c)](_0xab4084(0x113)))Swal[_0xab4084(0x145)]({'title':_0xab4084(0x141),'text':'Anda\x20pulang\x20lebih\x20awal,\x20semoga\x20besok\x20bisa\x20sesuai\x20waktu,\x20Yassarallaah\x20Lanaa','icon':_0xab4084(0x123),'confirmButtonText':'OK'})['then'](()=>{const _0x45b7ff=_0xab4084;window[_0x45b7ff(0x12e)]['href']=_0x45b7ff(0x12a);});else{if(_0x13ea4d[_0xab4084(0x13c)]('Tepat\x20Waktu'))Swal[_0xab4084(0x145)]({'title':'Absensi\x20Berhasil!','text':_0xab4084(0x13d),'icon':'success','confirmButtonText':'OK'})[_0xab4084(0x121)](()=>{const _0x5b7612=_0xab4084;window['location'][_0x5b7612(0xea)]=_0x5b7612(0x12a);});else{if(_0x13ea4d[_0xab4084(0x13c)]('Masuk\x20Terlambat'))Swal[_0xab4084(0x145)]({'title':'Absensi\x20Berhasil!','text':_0xab4084(0x156),'icon':'success','confirmButtonText':'OK'})['then'](()=>{const _0x1a0a89=_0xab4084;window[_0x1a0a89(0x12e)]['href']=_0x1a0a89(0x12a);});else _0x13ea4d['includes'](_0xab4084(0xe8))&&Swal[_0xab4084(0x145)]({'title':_0xab4084(0x141),'text':'Terimakasih,\x20anda\x20sudah\x20hadir\x20tepat\x20waktu,\x20Baarakallaah\x20Fiik','icon':_0xab4084(0x123),'confirmButtonText':'OK'})[_0xab4084(0x121)](()=>{const _0x213af8=_0xab4084;window[_0x213af8(0x12e)][_0x213af8(0xea)]='index.html';});}}}}}})[_0x3f96b1(0x127)](_0x48411c=>{const _0x48dbd2=_0x3f96b1;Swal[_0x48dbd2(0x145)]({'title':_0x48dbd2(0x161),'text':_0x48dbd2(0x14f),'icon':'error','confirmButtonText':'OK'})[_0x48dbd2(0x121)](()=>location[_0x48dbd2(0x13b)]()),document[_0x48dbd2(0x16d)](_0x48dbd2(0x108))[_0x48dbd2(0x151)]='Error\x20mencatat\x20absensi.';})[_0x3f96b1(0x132)](()=>{const _0x1a6b04=_0x3f96b1;_0x318f7b[_0x1a6b04(0x15f)]['remove'](_0x1a6b04(0xef)),_0x318f7b[_0x1a6b04(0x15d)]=![];});}else Swal[_0x3f96b1(0x145)]({'title':_0x3f96b1(0x12c),'text':'Silakan\x20login\x20kembali.','icon':'warning','confirmButtonText':'OK'}),document[_0x3f96b1(0x16d)](_0x3f96b1(0x108))[_0x3f96b1(0x151)]=_0x3f96b1(0x10b);}function updateAbsensiStatus(){const _0x301a88=_0x288ed7,_0x4d9e3d=localStorage[_0x301a88(0xf0)](_0x301a88(0xe6)),_0x210379=localStorage[_0x301a88(0xf0)](_0x4d9e3d+_0x301a88(0x131)),_0x22deb9=localStorage['getItem'](_0x4d9e3d+_0x301a88(0x135)),_0x10b276=localStorage[_0x301a88(0xf0)](_0x4d9e3d+'_lastAbsenDate'),_0x495435=localStorage[_0x301a88(0xf0)](_0x4d9e3d+_0x301a88(0xe9)),_0x64db0b=localStorage[_0x301a88(0xf0)](_0x4d9e3d+_0x301a88(0x118)),_0x74a52d=localStorage[_0x301a88(0xf0)](_0x4d9e3d+_0x301a88(0x13f)),_0x34cdc8=localStorage['getItem'](_0x4d9e3d+'_lokasiPulang'),_0x4d98af=new Date()[_0x301a88(0x136)]();if(_0x10b276!==_0x4d98af)resetAbsensiStatus(_0x4d9e3d);var _0xeee4a='',_0x12f997='';_0x210379?_0xeee4a='\x20<i\x20class=\x22fas\x20fa-check-circle\x20status-icon\x20status-absen-masuk\x22></i>\x20<i\x20class=\x22sudah-absen\x22>\x20Masuk\x20di\x20'+_0x74a52d+_0x301a88(0x153)+_0x495435+_0x301a88(0x101):_0xeee4a=_0x301a88(0x15e),_0x22deb9?_0x12f997=_0x301a88(0x16c)+_0x34cdc8+_0x301a88(0x153)+_0x64db0b+_0x301a88(0x101):_0x12f997=_0x301a88(0x103),document[_0x301a88(0x16d)](_0x301a88(0x150))['innerHTML']=_0xeee4a,document[_0x301a88(0x16d)](_0x301a88(0x126))[_0x301a88(0x13a)]=_0x12f997;}function login(){const _0x48be17=_0x288ed7;var _0x3d1b59=document['getElementById'](_0x48be17(0xe6))['value'],_0x57bcae=document[_0x48be17(0x16d)]('password')[_0x48be17(0x11a)],_0x54a184=document[_0x48be17(0x16d)](_0x48be17(0x175));if(!navigator[_0x48be17(0xec)]){Swal[_0x48be17(0x145)]({'title':_0x48be17(0xfa),'text':_0x48be17(0xfc),'icon':_0x48be17(0x15a),'confirmButtonText':'OK'});return;}_0x54a184[_0x48be17(0x15f)]['add']('login-loading'),_0x54a184[_0x48be17(0x15d)]=!![],fetch(apiUrl+_0x48be17(0x143)+_0x3d1b59+'&password='+_0x57bcae)['then'](_0xb1d07c=>_0xb1d07c[_0x48be17(0x114)]())[_0x48be17(0x121)](_0x46ebce=>{const _0x18f0e2=_0x48be17;_0x46ebce[_0x18f0e2(0x10d)]===_0x18f0e2(0x13e)?(localStorage['setItem'](_0x18f0e2(0xe6),_0x3d1b59),localStorage[_0x18f0e2(0x16e)](_0x18f0e2(0x125),_0x46ebce['nama_user']),document[_0x18f0e2(0x16d)](_0x18f0e2(0x174))[_0x18f0e2(0x151)]=_0x46ebce[_0x18f0e2(0x125)],document['getElementById']('loginForm')[_0x18f0e2(0x15f)][_0x18f0e2(0x166)](_0x18f0e2(0x115)),document[_0x18f0e2(0x16d)]('absensiPage')[_0x18f0e2(0x15f)]['remove'](_0x18f0e2(0x115)),document['getElementById'](_0x18f0e2(0x164))[_0x18f0e2(0x15f)][_0x18f0e2(0x14b)](_0x18f0e2(0x115)),document[_0x18f0e2(0x16d)](_0x18f0e2(0xed))[_0x18f0e2(0x15f)][_0x18f0e2(0x14b)](_0x18f0e2(0x115)),document[_0x18f0e2(0x16d)](_0x18f0e2(0x168))[_0x18f0e2(0x15f)][_0x18f0e2(0x14b)](_0x18f0e2(0x115)),document[_0x18f0e2(0x16d)](_0x18f0e2(0x111))['classList'][_0x18f0e2(0x14b)]('hidden'),document[_0x18f0e2(0x16d)]('homeButton')[_0x18f0e2(0x15f)][_0x18f0e2(0x166)](_0x18f0e2(0xf2)),updateAbsensiStatus()):Swal[_0x18f0e2(0x145)]({'title':'Login\x20Gagal','text':_0x18f0e2(0x102),'icon':_0x18f0e2(0x15a),'confirmButtonText':'OK'})['then'](()=>location[_0x18f0e2(0x13b)]());})[_0x48be17(0x127)](_0x2443fc=>{const _0x4d9eab=_0x48be17;console[_0x4d9eab(0x15a)](_0x4d9eab(0x10f),_0x2443fc),Swal[_0x4d9eab(0x145)]({'title':_0x4d9eab(0xf9),'text':_0x4d9eab(0x146),'icon':_0x4d9eab(0x15a),'confirmButtonText':'OK'});})[_0x48be17(0x132)](()=>{const _0x2da081=_0x48be17;_0x54a184[_0x2da081(0x15f)][_0x2da081(0x14b)](_0x2da081(0x106)),_0x54a184['disabled']=![];});}function _0x3bd5(_0x180664,_0x4a16ff){const _0x2432ce=_0x2432();return _0x3bd5=function(_0x3bd5b6,_0x523931){_0x3bd5b6=_0x3bd5b6-0xe6;let _0x887f35=_0x2432ce[_0x3bd5b6];return _0x887f35;},_0x3bd5(_0x180664,_0x4a16ff);}function _0x2432(){const _0x4b23ea=['loginStatus','Silakan\x20login\x20kembali.','2vKVOoo','remove','removeItem','395247XCAJJD','425775JmxkrM','Silahkan\x20coba\x20lagi','statusMasuk','innerText','https://script.google.com/macros/s/AKfycbx5uzO5nLBvsQL-txDNSp6MugBedVHL5aonvjDWOppdI33iekW9CqoqBL1z1brg7RD66g/exec','\x20pukul\x20','Gagal:\x20Jadwal\x20masuk\x20tidak\x20tersedia\x20untuk\x20hari\x20ini.','numeric','Qadarullah,\x20anda\x20terlambat,\x20semoga\x20besok\x20bisa\x20tepat\x20waktu,\x20Yassarallaah\x20Lanaa','Gagal:\x20Jadwal\x20pulang\x20tidak\x20tersedia\x20untuk\x20hari\x20ini.','Anda\x20akan\x20keluar\x20dari\x20sesi\x20ini.','213190WqKHzv','error','DOMContentLoaded','Gedung\x201','disabled','\x20<i\x20class=\x22fas\x20fa-times-circle\x20status-icon\x20status-belum-absen-masuk\x22>\x20</i>\x20<i\x20class=\x22belum-absen\x22>\x20Belum\x20absen\x20masuk</i>','classList','Pengambilan\x20lokasi\x20memakan\x20waktu\x20terlalu\x20lama.\x20Silakan\x20coba\x20lagi.','Gagal','Anda\x20tidak\x20memiliki\x20jadwal\x20Masuk\x20hari\x20ini.','toLocaleDateString','navbar','code','add','Anda\x20di\x20Luar\x20Radius','dateDisplay','&waktu=','527190CGmNoP','PERMISSION_DENIED','\x20<i\x20class=\x22fas\x20fa-check-circle\x20status-icon\x20status-absen-pulang\x22>\x20</i>\x20<i\x20class=\x22sudah-absen\x22>Pulang\x20di\x20','getElementById','setItem','8uIVCnn','padStart','3879096zuMyWC','25100PmPyGi','User\x20tidak\x20terjadwal','usernameDisplay','loginButton','username','secondDisplay','tepat\x20waktu','_waktuMasuk','href','getSeconds','onLine','headerTop','clear','loading','getItem','sqrt','active','TIMEOUT','Alhamdulillah\x20anda\x20sudah\x20melakukan\x20absen\x20masuk\x20hari\x20ini.','toFixed','minuteDisplay','Anda\x20berada\x20','toLocaleTimeString','Error','Tidak\x20Ada\x20Koneksi\x20Internet','8nycThV','Silakan\x20periksa\x20koneksi\x20internet\x20Anda\x20dan\x20coba\x20lagi.','homeButton','Yakin\x20ingin\x20keluar?','geolocation','long','</i>','Username\x20atau\x20Password\x20Tidak\x20Sesuai','\x20<i\x20class=\x22fas\x20fa-times-circle\x20status-icon\x20status-belum-absen-pulang\x22>\x20</i>\x20<i\x20class=\x22belum-absen\x22>\x20Belum\x20absen\x20pulang</i>','Button','getHours','login-loading','id-ID','absensiStatus','longitude','hourDisplay','Tidak\x20ada\x20username\x20yang\x20ditemukan.\x20Silakan\x20login\x20kembali.','#d33','status','Ya,\x20keluar','Error:','#3085d6','timeDisplay','Timeout','Pulang\x20Cepat','json','hidden','warning','Geolocation\x20Tidak\x20Didukung','_waktuPulang','Silakan\x20aktifkan\x20GPS\x20dan\x20izinkan\x20aplikasi\x20ini\x20untuk\x20mengakses\x20lokasi\x20Anda.','value','&lng=','?action=absensi&username=','loginForm','1586347ypmGVS','isConfirmed','toString','then','Error\x20Tidak\x20Diketahui','success','POSITION_UNAVAILABLE','nama_user','statusPulang','catch','_lastAbsenDate','password','index.html','textContent','Tidak\x20ada\x20username','getMinutes','location','absensiPage','sin','_absenMasuk','finally','423eOoEUS','coords','_absenPulang','toDateString','Lokasi\x20Tidak\x20Tersedia','Absensi\x20Gagal!','true','innerHTML','reload','includes','Anda\x20pulang\x20sesuai\x20waktu,\x20Baarakallaah\x20Fiik','Login\x20Success','_lokasiMasuk','11djlFYd','Absensi\x20Berhasil!','Browser\x20ini\x20tidak\x20mendukung\x20fitur\x20geolocation.\x20Silakan\x20gunakan\x20browser\x20lain.','?action=login&username=','masuk','fire','Terjadi\x20masalah\x20dengan\x20server.\x20Silakan\x20coba\x20lagi.','Absen\x20Ditolak!'];_0x2432=function(){return _0x4b23ea;};return _0x2432();}function confirmLogout(){const _0x25bb3b=_0x288ed7;Swal[_0x25bb3b(0x145)]({'title':_0x25bb3b(0xfe),'text':_0x25bb3b(0x158),'icon':_0x25bb3b(0x116),'showCancelButton':!![],'confirmButtonColor':_0x25bb3b(0x110),'cancelButtonColor':_0x25bb3b(0x10c),'confirmButtonText':_0x25bb3b(0x10e),'cancelButtonText':'Batal'})[_0x25bb3b(0x121)](_0x188abf=>{const _0x1c61a5=_0x25bb3b;_0x188abf[_0x1c61a5(0x11f)]&&(localStorage[_0x1c61a5(0x14c)](_0x1c61a5(0xe6)),localStorage[_0x1c61a5(0x14c)](_0x1c61a5(0x125)),sessionStorage[_0x1c61a5(0xee)](),window[_0x1c61a5(0x12e)]['href']=_0x1c61a5(0x12a));});}function logout(){const _0x28f203=_0x288ed7;localStorage[_0x28f203(0x14c)](_0x28f203(0xe6)),document[_0x28f203(0x16d)]('loginForm')['classList'][_0x28f203(0x14b)](_0x28f203(0x115)),document[_0x28f203(0x16d)](_0x28f203(0x12f))['classList'][_0x28f203(0x166)](_0x28f203(0x115)),document['getElementById'](_0x28f203(0x164))[_0x28f203(0x15f)][_0x28f203(0x166)](_0x28f203(0x115)),document[_0x28f203(0x16d)](_0x28f203(0xed))[_0x28f203(0x15f)][_0x28f203(0x166)](_0x28f203(0x115)),document[_0x28f203(0x16d)]('dateDisplay')[_0x28f203(0x15f)][_0x28f203(0x166)](_0x28f203(0x115)),document[_0x28f203(0x16d)](_0x28f203(0x111))[_0x28f203(0x15f)]['add'](_0x28f203(0x115)),document[_0x28f203(0x16d)]('username')[_0x28f203(0x11a)]='',document[_0x28f203(0x16d)](_0x28f203(0x129))[_0x28f203(0x11a)]='',document[_0x28f203(0x16d)](_0x28f203(0x148))['innerText']='silahkan\x20masukan\x20username\x20dan\x20password',document[_0x28f203(0x16d)](_0x28f203(0x108))[_0x28f203(0x151)]='';}function updateTime(){const _0x2b6246=_0x288ed7,_0xb77465=new Date(),_0x218936={'weekday':'long','year':_0x2b6246(0x155),'month':_0x2b6246(0x100),'day':_0x2b6246(0x155)},_0x19aab2=_0xb77465[_0x2b6246(0x105)]()[_0x2b6246(0x120)]()[_0x2b6246(0x170)](0x2,'0'),_0x35011d=_0xb77465[_0x2b6246(0x12d)]()[_0x2b6246(0x120)]()[_0x2b6246(0x170)](0x2,'0'),_0x2c3a99=_0xb77465[_0x2b6246(0xeb)]()[_0x2b6246(0x120)]()[_0x2b6246(0x170)](0x2,'0'),_0x23fb02=_0xb77465[_0x2b6246(0x163)](_0x2b6246(0x107),_0x218936);document['getElementById'](_0x2b6246(0x10a))[_0x2b6246(0x12b)]=_0x19aab2,document[_0x2b6246(0x16d)](_0x2b6246(0xf6))[_0x2b6246(0x12b)]=_0x35011d,document['getElementById'](_0x2b6246(0xe7))[_0x2b6246(0x12b)]=_0x2c3a99,document[_0x2b6246(0x16d)](_0x2b6246(0x168))[_0x2b6246(0x12b)]=_0x23fb02;}setInterval(updateTime,0x3e8),window['onload']=function(){const _0x5cd01e=_0x288ed7,_0x46fb12=localStorage['getItem']('nama_user'),_0x5a0970=localStorage[_0x5cd01e(0xf0)](_0x5cd01e(0xe6));_0x5a0970?(document[_0x5cd01e(0x16d)](_0x5cd01e(0x11d))['classList']['add'](_0x5cd01e(0x115)),document[_0x5cd01e(0x16d)]('absensiPage')[_0x5cd01e(0x15f)][_0x5cd01e(0x14b)](_0x5cd01e(0x115)),document[_0x5cd01e(0x16d)]('navbar')[_0x5cd01e(0x15f)][_0x5cd01e(0x14b)](_0x5cd01e(0x115)),document['getElementById'](_0x5cd01e(0xed))[_0x5cd01e(0x15f)][_0x5cd01e(0x14b)]('hidden'),document['getElementById'](_0x5cd01e(0x168))[_0x5cd01e(0x15f)][_0x5cd01e(0x14b)]('hidden'),document[_0x5cd01e(0x16d)](_0x5cd01e(0x111))['classList'][_0x5cd01e(0x14b)](_0x5cd01e(0x115)),document[_0x5cd01e(0x16d)](_0x5cd01e(0x174))[_0x5cd01e(0x151)]=_0x46fb12,updateTime(),updateAbsensiStatus(),document[_0x5cd01e(0x16d)](_0x5cd01e(0xfd))[_0x5cd01e(0x15f)][_0x5cd01e(0x166)](_0x5cd01e(0xf2))):(document[_0x5cd01e(0x16d)](_0x5cd01e(0x11d))['classList'][_0x5cd01e(0x14b)](_0x5cd01e(0x115)),document[_0x5cd01e(0x16d)]('absensiPage')[_0x5cd01e(0x15f)][_0x5cd01e(0x166)](_0x5cd01e(0x115)),document[_0x5cd01e(0x16d)](_0x5cd01e(0x164))[_0x5cd01e(0x15f)][_0x5cd01e(0x166)](_0x5cd01e(0x115)));};
+  document.addEventListener('DOMContentLoaded', () => {
+  const username = localStorage.getItem('username');
+
+  if (!username) {
+    // Jika tidak ada username di localStorage, arahkan ke halaman index.html
+    window.location.href = 'index.html';
+  }
+});
+
+
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbx5uzO5nLBvsQL-txDNSp6MugBedVHL5aonvjDWOppdI33iekW9CqoqBL1z1brg7RD66g/exec'; // Ganti dengan URL Web Apps kamu
+
+//lokasi ikhwan
+const targetLat = 3.5154559402393692; // Lokasi target (Latitude)
+const targetLng = 98.67312321534209;  // Lokasi target (Longitude)
+const radius = 100; // Radius dalam meter
+
+//lokasi akhwat
+//const targetLat = 3.5280696940434884; // Lokasi target (Latitude)
+//const targetLng = 98.67634145072546;  // Lokasi target (Longitude)
+//const radius = 200; // Radius dalam meter
+
+function getLocation(action) {
+  var button = document.getElementById(action + 'Button');
+  button.classList.add('loading');  // Tampilkan loading pada tombol
+  button.disabled = true;  // Disable tombol saat menunggu validasi radius
+
+// Periksa apakah koneksi internet tersedia
+if (!navigator.onLine) {
+Swal.fire({
+  title: 'Tidak Ada Koneksi Internet',
+  text: 'Silakan periksa koneksi internet Anda dan coba lagi.',
+  icon: 'error',
+  confirmButtonText: 'OK'
+}).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+return; // Hentikan eksekusi jika tidak ada koneksi
+}
+
+var username = localStorage.getItem('username');  // Ambil username dari localStorage
+if (!username) {
+Swal.fire({
+  title: 'Tidak ada username',
+  text: 'Silakan login kembali.',
+  icon: 'warning',
+  confirmButtonText: 'OK'
+});
+return;
+}
+
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(function (position) {
+  var userLat = position.coords.latitude;
+  var userLng = position.coords.longitude;
+
+  // Hitung jarak dengan Haversine Formula
+  var distance = calculateDistance(userLat, userLng, targetLat, targetLng);
+
+  // Jika jarak dalam radius yang ditentukan
+  if (distance <= radius) {
+    // Kirim absensi ke server
+    absensi(action, userLat, userLng);
+  } else {
+   // Tampilkan notifikasi jika di luar radius
+   Swal.fire({
+      title: 'Anda di Luar Radius',
+      text: `Anda berada ${distance.toFixed(2)} meter di luar radius absensi. Silakan mendekat ke area yang ditentukan.`,
+      icon: 'warning',
+      confirmButtonText: 'OK'
+    }).then(() => {
+        location.reload(); // Refresh halaman setelah konfirmasi
+      });
+  }
+}, function handleGeolocationError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      Swal.fire({
+        title: 'Izin Ditolak',
+        text: 'Silakan aktifkan GPS dan izinkan aplikasi ini untuk mengakses lokasi Anda.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    case error.POSITION_UNAVAILABLE:
+      Swal.fire({
+        title: 'Lokasi Tidak Tersedia',
+        text: 'GPS mungkin dimatikan. Aktifkan GPS untuk menggunakan fitur lokasi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    case error.TIMEOUT:
+      Swal.fire({
+        title: 'Timeout',
+        text: 'Pengambilan lokasi memakan waktu terlalu lama. Silakan coba lagi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+    default:
+      Swal.fire({
+        title: 'Error Tidak Diketahui',
+        text: 'Terjadi kesalahan saat mencoba mendapatkan lokasi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+      break;
+  }
+});
+} else {
+// Notifikasi jika browser tidak mendukung geolocation
+Swal.fire({
+  title: 'Geolocation Tidak Didukung',
+  text: 'Browser ini tidak mendukung fitur geolocation. Silakan gunakan browser lain.',
+  icon: 'error',
+  confirmButtonText: 'OK'
+}).then(() => {
+  location.reload(); // Refresh halaman setelah konfirmasi
+});
+}
+}
+
+// Menghitung jarak menggunakan Haversine Formula
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371e3; // Radius bumi dalam meter
+  const φ1 = lat1 * Math.PI / 180; // φ, λ dalam radian
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lng2 - lng1) * Math.PI / 180;
+
+  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c; // Jarak dalam meter
+  return distance;
+}
+
+function absensi(action, lat, lng) {
+    var username = localStorage.getItem('username');
+    var button = document.getElementById(action + 'Button'); // Ambil tombol Masuk atau Pulang
+
+    if (username) {
+        // Pengecekan apakah user sudah absen masuk hari ini
+        const today = new Date().toDateString(); // Tanggal saat ini
+        const lastAbsenMasukDate = localStorage.getItem(`${username}_lastAbsenMasukDate`);
+
+        if (action === 'masuk' && lastAbsenMasukDate === today) {
+            Swal.fire({
+                title: 'Absen Ditolak!',
+                text: 'Alhamdulillah anda sudah melakukan absen masuk hari ini.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            }).then(() => location.reload());
+            return; // Hentikan proses jika sudah absen masuk hari ini
+        }
+
+        button.classList.add('loading'); // Tambahkan kelas loading untuk Masuk atau Pulang
+        button.disabled = true;
+
+        const waktuMasuk = new Date().toLocaleTimeString('id-ID'); // Menghasilkan waktu dalam format HH:mm:ss
+
+
+        fetch(`${apiUrl}?action=absensi&username=${username}&actionType=${action}&lat=${lat}&lng=${lng}&waktu=${encodeURIComponent(waktuMasuk)}`)
+            .then(response => response.text())
+            .then(response => {
+                if (response.includes('User tidak terjadwal')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'User tidak terjadwal',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else if (response.includes('Gagal: Jadwal masuk tidak tersedia untuk hari ini.')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'Anda tidak memiliki jadwal Masuk hari ini.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else if (response.includes('Gagal: Jadwal pulang tidak tersedia untuk hari ini.')) {
+                    Swal.fire({
+                        title: 'Absensi Gagal!',
+                        text: 'Anda tidak memiliki jadwal Pulang hari ini.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then(() => location.reload());
+                } else {
+                    // Simpan data absensi hanya jika respons berhasil
+                    if (action === 'masuk') {
+                        localStorage.setItem(`${username}_absenMasuk`, 'true');
+                        localStorage.setItem(`${username}_waktuMasuk`, waktuMasuk); // Simpan waktu masuk
+                        localStorage.setItem(`${username}_lastAbsenMasukDate`, today); // Simpan tanggal absen masuk
+                        localStorage.setItem(`${username}_lokasiMasuk`, 'Gedung 1');
+                    } else if (action === 'pulang') {
+                        localStorage.setItem(`${username}_absenPulang`, 'true');
+                        localStorage.setItem(`${username}_waktuPulang`, waktuMasuk); // Simpan waktu pulang
+                        localStorage.setItem(`${username}_lokasiPulang`, 'Gedung 1');
+                    }
+                    localStorage.setItem(`${username}_lastAbsenDate`, today);
+
+                    if (response.includes('Pulang Cepat')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Anda pulang lebih awal, semoga besok bisa sesuai waktu, Yassarallaah Lanaa',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('Tepat Waktu')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Anda pulang sesuai waktu, Baarakallaah Fiik',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('Masuk Terlambat')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Qadarullah, anda terlambat, semoga besok bisa tepat waktu, Yassarallaah Lanaa',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } else if (response.includes('tepat waktu')){
+                    Swal.fire({
+                        title: 'Absensi Berhasil!',
+                        text: 'Terimakasih, anda sudah hadir tepat waktu, Baarakallaah Fiik',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Pengalihan halaman
+                    });
+                  } 
+                } 
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Gagal',
+                    text: 'Silahkan coba lagi',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then(() => location.reload());
+
+                document.getElementById('absensiStatus').innerText = "Error mencatat absensi.";
+            })
+            .finally(() => {
+                button.classList.remove('loading');
+                button.disabled = false;
+            });
+    } else {
+        Swal.fire({
+            title: 'Tidak ada username',
+            text: 'Silakan login kembali.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+
+        document.getElementById('absensiStatus').innerText = "Tidak ada username yang ditemukan. Silakan login kembali.";
+    }
+}
+
+
+
+
+
+
+function updateAbsensiStatus() {
+  const username = localStorage.getItem('username');
+  const absenMasuk = localStorage.getItem(`${username}_absenMasuk`);
+  const absenPulang = localStorage.getItem(`${username}_absenPulang`);
+  const lastAbsenDate = localStorage.getItem(`${username}_lastAbsenDate`);
+  const waktuMasuk = localStorage.getItem(`${username}_waktuMasuk`);
+  const waktuPulang = localStorage.getItem(`${username}_waktuPulang`);
+  const lokasiDatang = localStorage.getItem(`${username}_lokasiMasuk`);
+  const lokasiKembali = localStorage.getItem(`${username}_lokasiPulang`);
+  const currentDate = new Date().toDateString();
+
+  if (lastAbsenDate !== currentDate) resetAbsensiStatus(username);
+
+  // Menampilkan status dengan ikon dan waktu
+var statusMessageMasuk = '';
+var statusMessagePulang = '';
+
+if (absenMasuk) {
+statusMessageMasuk = ` <i class="fas fa-check-circle status-icon status-absen-masuk"></i> <i class="sudah-absen"> Masuk di ${lokasiDatang} pukul ${waktuMasuk}</i>`;
+} else {
+statusMessageMasuk = ' <i class="fas fa-times-circle status-icon status-belum-absen-masuk"> </i> <i class="belum-absen"> Belum absen masuk</i>';
+}
+
+if (absenPulang) {
+statusMessagePulang = ` <i class="fas fa-check-circle status-icon status-absen-pulang"> </i> <i class="sudah-absen">Pulang di ${lokasiKembali} pukul ${waktuPulang}</i>`;
+} else {
+statusMessagePulang = ' <i class="fas fa-times-circle status-icon status-belum-absen-pulang"> </i> <i class="belum-absen"> Belum absen pulang</i>';
+}
+
+  document.getElementById('statusMasuk').innerHTML = statusMessageMasuk;
+  document.getElementById('statusPulang').innerHTML = statusMessagePulang;
+}
+
+
+
+function login() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var loginButton = document.getElementById('loginButton'); // Ambil tombol login
+
+  // Periksa apakah ada koneksi internet
+  if (!navigator.onLine) {
+    Swal.fire({
+      title: 'Tidak Ada Koneksi Internet',
+      text: 'Silakan periksa koneksi internet Anda dan coba lagi.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+    return; // Hentikan proses jika tidak ada internet
+  }
+
+  // Tambahkan loading spinner ke tombol login
+  loginButton.classList.add('login-loading');
+  loginButton.disabled = true; // Nonaktifkan tombol selama proses login
+
+  fetch(`${apiUrl}?action=login&username=${username}&password=${password}`)
+    .then(response => response.json()) // Parsing JSON karena API mengembalikan objek
+    .then(data => {
+      if (data.status === "Login Success") {
+        // Simpan username dan nama_user di localStorage
+        localStorage.setItem('username', username);
+        localStorage.setItem('nama_user', data.nama_user);
+
+        // Perbarui tampilan nama pengguna di elemen usernameDisplay
+        document.getElementById('usernameDisplay').innerText = data.nama_user;
+
+        // Ubah tampilan ke halaman absensi
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('absensiPage').classList.remove('hidden');
+        document.getElementById('navbar').classList.remove('hidden'); // Tampilkan navbar di halaman absensi
+        document.getElementById('headerTop').classList.remove('hidden'); // Tampilkan header di halaman absensi
+        document.getElementById('dateDisplay').classList.remove('hidden'); // Tampilkan tanggal di halaman absensi
+        document.getElementById('timeDisplay').classList.remove('hidden'); // Tampilkan waktu di halaman absensi
+        document.getElementById('homeButton').classList.add('active'); // Menandai halaman Home sebagai aktif
+
+        // Tampilkan status absensi
+        updateAbsensiStatus();
+      } else {
+        Swal.fire({
+          title: 'Login Gagal',
+          text: 'Username atau Password Tidak Sesuai',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        }).then(() => location.reload());
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Terjadi masalah dengan server. Silakan coba lagi.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    })
+    .finally(() => {
+      // Hapus loading spinner dan aktifkan kembali tombol setelah proses selesai
+      loginButton.classList.remove('login-loading');
+      loginButton.disabled = false;
+    });
+}
+
+function confirmLogout() {
+  Swal.fire({
+    title: 'Yakin ingin keluar?',
+    text: "Anda akan keluar dari sesi ini.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, keluar',
+    cancelButtonText: 'Batal'
+}).then((result) => {
+    if (result.isConfirmed) {
+        // Aksi logout
+        // Misalnya, hapus session atau localStorage jika diperlukan
+        localStorage.removeItem('username'); // Contoh jika username disimpan di localStorage
+        localStorage.removeItem('nama_user');
+        sessionStorage.clear(); // Bersihkan sessionStorage jika ada
+
+        // Redirect ke halaman index.html
+        window.location.href = 'index.html';
+    }
+});
+}
+function logout() {
+  localStorage.removeItem('username');  // Hapus username dari localStorage
+    // Hapus username dari localStorage
+  // Jangan hapus status absen saat logout
+  document.getElementById('loginForm').classList.remove('hidden');
+  document.getElementById('absensiPage').classList.add('hidden');
+  document.getElementById('navbar').classList.add('hidden'); // Sembunyikan navbar di halaman login
+  document.getElementById('headerTop').classList.add('hidden'); // Sembunyikan header di halaman login
+  document.getElementById('dateDisplay').classList.add('hidden'); // Sembunyikan tanggal di halaman login
+  document.getElementById('timeDisplay').classList.add('hidden'); // Sembunyikan waktu di halaman login
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('loginStatus').innerText = 'silahkan masukan username dan password';
+  document.getElementById('absensiStatus').innerText = '';
+  
+}
+
+function updateTime() {
+const now = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+const hour = now.getHours().toString().padStart(2, '0');   // Menampilkan jam dengan 2 digit
+const minute = now.getMinutes().toString().padStart(2, '0'); // Menampilkan menit dengan 2 digit
+const second = now.getSeconds().toString().padStart(2, '0'); // Menampilkan detik dengan 2 digit
+const dateString = now.toLocaleDateString('id-ID', options); // Menggunakan 'id-ID' untuk bahasa Indonesia
+
+document.getElementById('hourDisplay').textContent = hour;
+document.getElementById('minuteDisplay').textContent = minute;
+document.getElementById('secondDisplay').textContent = second;
+document.getElementById('dateDisplay').textContent = dateString; // Memperbarui elemen tanggal dan hari
+}
+
+
+// Memperbarui waktu setiap detik
+setInterval(updateTime, 1000);
+
+window.onload = function() {
+  const namaUser = localStorage.getItem('nama_user');
+  const username = localStorage.getItem('username');
+  if (username) {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('absensiPage').classList.remove('hidden');
+    document.getElementById('navbar').classList.remove('hidden'); // Tampilkan navbar
+    document.getElementById('headerTop').classList.remove('hidden'); // Tampilkan header
+    document.getElementById('dateDisplay').classList.remove('hidden'); // Tampilkan tanggal
+    document.getElementById('timeDisplay').classList.remove('hidden'); // Tampilkan waktu
+    document.getElementById('usernameDisplay').innerText = namaUser;
+    updateTime(); // Perbarui waktu saat halaman dimuat
+
+    // Tampilkan status absensi
+    updateAbsensiStatus();
+    
+    // Tambahkan kelas aktif untuk halaman absensi
+    document.getElementById('homeButton').classList.add('active'); // Menandai halaman Home sebagai aktif
+  } else {
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('absensiPage').classList.add('hidden');
+    document.getElementById('navbar').classList.add('hidden'); // Sembunyikan navbar
+  }
+};
   </script>
 </body>
 <!-- Menu Navigasi, hanya ditampilkan di halaman absensi -->
