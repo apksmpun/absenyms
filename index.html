@@ -2,6 +2,9 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4CAF50">
+
 
   <title>Login dan Absensi</title>
   <!-- Link Font Awesome -->
@@ -572,6 +575,14 @@
     </style>
  
 </head>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(reg => console.log('Service Worker registered:', reg))
+      .catch(err => console.log('Service Worker failed:', err));
+  }
+</script>
+
 <body>
   <div id="loginForm">
     <h2>Login Absen YMS</h2>
